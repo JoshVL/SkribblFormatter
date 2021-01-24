@@ -19,8 +19,9 @@ def main():
     # Obtain text file to format
     fileName = input("Enter the txt file location: ")
     txtFile = open(fileName, "r")
-
+    
     # Creates the formated txt file to put formated words
+    listOfWords = []
     formatedTxt = open("Formated.txt", "w+")
 
     # Reads through the given txt file to format words into formated txt
@@ -29,9 +30,13 @@ def main():
             for word in line.split():
                 # Remove special characters
                 word = remChars(word)
-                # Does not write to txt if formated word is now empty
-                if not(word == ''):
-                    formatedTxt.write(remChars(word) + ", ")
+                # Adds the word to list of stored words
+                if not((word == '') or (word.casefold() in listOfWords)):
+                    listOfWords.append(word)
+    
+    # Writes to the text file
+    for x in range(len(listOfWords)):
+        formatedTxt.write(listOfWords[x] + ", ")
 
     # Closing the text files once finished
     print("\nFormatted words successfully. Please check Formated.txt for your formated list of words.")
